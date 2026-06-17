@@ -1,0 +1,1 @@
+{"version":3,"file":"warnings.js","sourceRoot":"","sources":["../../src/prompts/warnings.ts"],"names":[],"mappings":"AAEA,MAAM,UAAU,mBAAmB;IACjC,OAAO,uIAAuI,CAAC;AACjJ,CAAC;AAED,MAAM,UAAU,kBAAkB,CAAC,KAAuB;IACxD,IAAI,KAAK,KAAK,QAAQ,EAAE,CAAC;QACvB,OAAO,mKAAmK,CAAC;IAC7K,CAAC;IACD,OAAO,sHAAsH,CAAC;AAChI,CAAC"}

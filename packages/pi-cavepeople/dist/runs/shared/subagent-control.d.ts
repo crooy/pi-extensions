@@ -1,0 +1,35 @@
+import { type ActivityState, type ControlConfig, type ControlEvent, type ControlEventType, type ResolvedControlConfig } from "../../shared/types.ts";
+export declare const DEFAULT_CONTROL_CONFIG: ResolvedControlConfig;
+export declare function resolveControlConfig(globalConfig?: ControlConfig, override?: ControlConfig): ResolvedControlConfig;
+export declare function deriveActivityState(input: {
+    config: ResolvedControlConfig;
+    startedAt: number;
+    lastActivityAt?: number;
+    now?: number;
+}): ActivityState | undefined;
+export declare function buildControlEvent(input: {
+    type?: ControlEventType;
+    from?: ActivityState;
+    to: ActivityState;
+    runId: string;
+    agent: string;
+    index?: number;
+    ts?: number;
+    lastActivityAt?: number;
+    message?: string;
+    reason?: ControlEvent["reason"];
+    turns?: number;
+    tokens?: number;
+    toolCount?: number;
+    currentTool?: string;
+    currentToolDurationMs?: number;
+    currentPath?: string;
+    elapsedMs?: number;
+    recentFailureSummary?: string;
+}): ControlEvent;
+export declare function shouldNotifyControlEvent(config: ResolvedControlConfig, event: ControlEvent): boolean;
+export declare function controlNotificationKey(event: ControlEvent, childIntercomTarget?: string): string;
+export declare function claimControlNotification(config: ResolvedControlConfig, event: ControlEvent, seenKeys: Set<string>, childIntercomTarget?: string): boolean;
+export declare function formatControlNoticeMessage(event: ControlEvent, childIntercomTarget?: string): string;
+export declare function formatControlIntercomMessage(event: ControlEvent, childIntercomTarget?: string): string;
+//# sourceMappingURL=subagent-control.d.ts.map

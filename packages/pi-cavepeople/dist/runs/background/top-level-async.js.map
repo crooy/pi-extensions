@@ -1,0 +1,1 @@
+{"version":3,"file":"top-level-async.js","sourceRoot":"","sources":["../../../src/runs/background/top-level-async.ts"],"names":[],"mappings":"AAKA,MAAM,UAAU,+BAA+B,CAC9C,MAAS,EACT,KAAa,EACb,kBAA2B;IAE3B,IAAI,CAAC,CAAC,KAAK,KAAK,CAAC,IAAI,kBAAkB,CAAC;QAAE,OAAO,MAAM,CAAC;IACxD,OAAO,EAAE,GAAG,MAAM,EAAE,KAAK,EAAE,IAAI,EAAE,OAAO,EAAE,KAAK,EAAE,CAAC;AACnD,CAAC"}
