@@ -51,7 +51,7 @@ export function buildInjectionBlock(
   let omitted = 0;
 
   for (const i of instincts) {
-    const bullet = `${i.confidence < 1 ? "." + String(i.confidence).replace(/^0\./, "") : "1."} ${i.trigger} → ${i.action}`;
+    const bullet = `${i.confidence < 1 ? "." + i.confidence.toFixed(2).substring(2) : "1.00"} ${i.trigger} → ${i.action}`;
     const bulletLen = bullet.length + 1; // +1 for newline
 
     if (maxChars && charCount + bulletLen > maxChars) {
