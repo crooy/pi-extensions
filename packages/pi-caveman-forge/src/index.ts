@@ -7,11 +7,14 @@
  * - /forge execute [--tribe] → execute pending tasks (--tribe = caveman subagents)
  * - /forge status → show plan progress
  * - /forge next → show next task
+ *
+ * Status bar shows: ⛏️ idle | 🧠 brainstorm | 📋 plan | 🔨 forge | ✅ done
  */
 
 import type {
   ExtensionAPI,
   ExtensionCommandContext,
+  ExtensionContext,
 } from "@earendil-works/pi-coding-agent";
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -34,6 +37,10 @@ function planPath(cwd: string): string {
   return path.join(forgeDir(cwd), "plan.md");
 }
 
+function statePath(cwd: string): string {
+  return path.join(forgeDir(cwd), "state.json");
+}
+
 function ensureForgeDir(cwd: string): void {
   const dir = forgeDir(cwd);
   if (!fs.existsSync(dir)) {
@@ -42,7 +49,63 @@ function ensureForgeDir(cwd: string): void {
 }
 
 // ---------------------------------------------------------------------------
-// Plan parsing (simple markdown checkboxes)
+// Forge phase state
+// ---------------------------------------------------------------------------
+
+type ForgePhase = "idle" | "brainstorm" | "plan" | "forge" | "done";
+
+interface ForgeState {
+  phase: ForgePhase;
+}
+
+const PHASE_ICONS: Record<ForgePhase, string> = {
+  idle: "⛏️",
+  brainstorm: "🧠",
+  plan: "📋",
+  forge: "🔨",
+  done: "✅",
+};
+
+function readState(cwd: string): ForgeState {
+  try {
+    const raw = fs.readFileSync(statePath(cwd), "utf-8");
+    return JSON.parse(raw) as ForgeState;
+  } catch {
+    return { phase: "idle" };
+  }
+}
+
+function writeState(cwd: string, state: ForgeState): void {
+  ensureForgeDir(cwd);
+  fs.writeFileSync(statePath(cwd), JSON.stringify(state), "utf-8");
+}
+
+/** Auto-detect phase from file state, falling back to stored state */
+function detectPhase(cwd: string): ForgePhase {
+  const bp = brainstormPath(cwd);
+  const pp = planPath(cwd);
+  const hasBrainstorm = fs.existsSync(bp);
+  const hasPlan = fs.existsSync(pp);
+
+  if (!hasBrainstorm && !hasPlan) return "idle";
+  if (hasBrainstorm && !hasPlan) return "brainstorm";
+
+  if (hasPlan) {
+    const content = fs.readFileSync(pp, "utf-8");
+    const tasks = parseTasks(content);
+    if (tasks.length === 0) return "plan";
+    const allDone = tasks.every((t) => t.done);
+    if (allDone) return "done";
+    // Has pending tasks — read stored state for forge vs plan
+    const stored = readState(cwd);
+    return stored.phase === "forge" ? "forge" : "plan";
+  }
+
+  return "idle";
+}
+
+// ---------------------------------------------------------------------------
+// Plan parsing
 // ---------------------------------------------------------------------------
 
 interface Task {
@@ -51,35 +114,33 @@ interface Task {
   done: boolean;
 }
 
-function parsePlan(content: string): { phases: string[]; tasks: Task[] } {
+function parseTasks(content: string): Task[] {
   const lines = content.split("\n");
-  const phases: string[] = [];
   const tasks: Task[] = [];
-
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]!;
-    // Phase headers: ## Phase N: Title or ### Phase N: Title
-    if (/^#{2,3}\s+(Phase|Fase)\s+\d/i.test(line.trim())) {
-      phases.push(line.trim());
-    }
-    // Task checkboxes: - [ ] task or - [x] task
-    const taskMatch = line.match(/^[\s]*[-*]\s+\[([ xX])\]\s+(.+)$/);
-    if (taskMatch) {
+    const match = lines[i]!.match(/^[\s]*[-*]\s+\[([ xX])\]\s+(.+)$/);
+    if (match) {
       tasks.push({
         line: i,
-        text: taskMatch[2]!.trim(),
-        done: taskMatch[1]!.toLowerCase() === "x",
+        text: match[2]!.trim(),
+        done: match[1]!.toLowerCase() === "x",
       });
     }
   }
-
-  return { phases, tasks };
+  return tasks;
 }
 
-function formatPlanStatus(plan: { phases: string[]; tasks: Task[] }): string {
-  const total = plan.tasks.length;
-  const done = plan.tasks.filter((t) => t.done).length;
-  const pending = plan.tasks.filter((t) => !t.done);
+function parsePhases(content: string): string[] {
+  return content
+    .split("\n")
+    .filter((l) => /^#{2,3}\s+(Phase|Fase)\s+\d/i.test(l.trim()))
+    .map((l) => l.trim());
+}
+
+function formatPlanStatus(tasks: Task[]): string {
+  const total = tasks.length;
+  const done = tasks.filter((t) => t.done).length;
+  const pending = tasks.filter((t) => !t.done);
 
   const lines: string[] = [];
   lines.push(`🔨 Forge: ${done}/${total} tasks done`);
@@ -98,8 +159,36 @@ function formatPlanStatus(plan: { phases: string[]; tasks: Task[] }): string {
   return lines.join("\n");
 }
 
-function getNextTask(plan: { phases: string[]; tasks: Task[] }): Task | null {
-  return plan.tasks.find((t) => !t.done) ?? null;
+function getNextTask(tasks: Task[]): Task | null {
+  return tasks.find((t) => !t.done) ?? null;
+}
+
+// ---------------------------------------------------------------------------
+// Status bar
+// ---------------------------------------------------------------------------
+
+function updateStatus(ctx: Pick<ExtensionContext, "ui">, cwd: string): void {
+  const phase = detectPhase(cwd);
+  const icon = PHASE_ICONS[phase];
+  const tasks = getTasks(cwd);
+
+  let label = ` ${icon} `;
+  if (phase === "forge" || phase === "done") {
+    const done = tasks.filter((t) => t.done).length;
+    label += `${done}/${tasks.length}`;
+  } else if (phase === "plan") {
+    label += `${tasks.length}t`;
+  } else if (phase === "brainstorm") {
+    label += "brainstorm";
+  }
+
+  ctx.ui.setStatus("forge", label);
+}
+
+function getTasks(cwd: string): Task[] {
+  const pp = planPath(cwd);
+  if (!fs.existsSync(pp)) return [];
+  return parseTasks(fs.readFileSync(pp, "utf-8"));
 }
 
 // ---------------------------------------------------------------------------
@@ -111,28 +200,32 @@ function buildForgeInjection(cwd: string): string | null {
   if (!fs.existsSync(pp)) return null;
 
   const content = fs.readFileSync(pp, "utf-8");
-  const plan = parsePlan(content);
+  const tasks = parseTasks(content);
+  if (tasks.length === 0) return null;
 
-  if (plan.tasks.length === 0) return null;
+  const done = tasks.filter((t) => t.done).length;
+  const total = tasks.length;
 
-  const done = plan.tasks.filter((t) => t.done).length;
-  const total = plan.tasks.length;
-  const next = getNextTask(plan);
+  const allDone = done === total;
+  const next = getNextTask(tasks);
+  const phases = parsePhases(content);
 
-  let block = `\n\n## 🔨 Active Forge Plan (${done}/${total} done)\n\n`;
-  for (const phase of plan.phases) {
+  let block = `\n\n## 🔨 Forge Plan (${done}/${total} done)\n\n`;
+  for (const phase of phases) {
     block += `${phase}\n`;
   }
-  if (next) {
+  if (allDone) {
+    block += `\n✅ All tasks complete.\n`;
+  } else if (next) {
     block += `\n**Next:** ${next.text}\n`;
   }
-  block += `\nCheck .pi/forge/plan.md for full task list. Mark tasks [x] when done.\n`;
+  block += `\nSee .pi/forge/plan.md for full list. Mark [x] when done.\n`;
 
   return block;
 }
 
 // ---------------------------------------------------------------------------
-// Commands
+// Prompts
 // ---------------------------------------------------------------------------
 
 const BRAINSTORM_PROMPT = (objective: string) => `## 🧠 Brainstorm: ${objective}
@@ -144,7 +237,7 @@ Analyze codebase + objective. Write brainstorm.md in .pi/forge/ with:
 3. **Key files** — files to touch. Bullet list.
 4. **Open questions** — what's unclear. Bullet list.
 
-Use write tool to save to .pi/forge/brainstorm.md. Keep it terse like caveman.`;
+Use write tool to save to .pi/forge/brainstorm.md. Keep it terse.`;
 
 const PLAN_PROMPT = `## 📋 Plan
 
@@ -197,18 +290,32 @@ Keep it terse. Caveman style. Report progress after each task.`;
 // ---------------------------------------------------------------------------
 
 export default function (pi: ExtensionAPI): void {
-  // Inject forge context into system prompt
+  // Inject forge context + update status bar before each agent turn
   pi.on("before_agent_start", (event, ctx) => {
     try {
+      // Update status bar
+      updateStatus(ctx, ctx.cwd);
+
+      // Inject plan into system prompt
       const block = buildForgeInjection(ctx.cwd);
       if (!block) return;
       const e = event as { systemPrompt?: string };
       return { systemPrompt: (e.systemPrompt ?? "") + block };
     } catch {
-      // Silent fail — don't break agent start
+      // Silent fail
     }
   });
 
+  // Refresh status bar when agent starts/ends
+  pi.on("agent_start", (_event, ctx) => {
+    try { updateStatus(ctx, ctx.cwd); } catch { /* ok */ }
+  });
+
+  pi.on("agent_end", (_event, ctx) => {
+    try { updateStatus(ctx, ctx.cwd); } catch { /* ok */ }
+  });
+
+  // /forge command
   pi.registerCommand("forge", {
     description:
       "Forge: brainstorm → plan → execute. Subcommands: brainstorm, plan, execute, status, next",
@@ -226,80 +333,81 @@ export default function (pi: ExtensionAPI): void {
             ctx.ui.notify("Usage: /forge brainstorm <objective>", "error");
             return;
           }
-          const prompt = BRAINSTORM_PROMPT(rest);
-          pi.sendUserMessage(prompt, { deliverAs: "followUp" });
+          writeState(ctx.cwd, { phase: "brainstorm" });
+          updateStatus(ctx, ctx.cwd);
+          pi.sendUserMessage(BRAINSTORM_PROMPT(rest), { deliverAs: "followUp" });
           break;
         }
 
         case "plan": {
-          const bp = brainstormPath(ctx.cwd);
-          if (!fs.existsSync(bp)) {
+          if (!fs.existsSync(brainstormPath(ctx.cwd))) {
             ctx.ui.notify(
-              "No brainstorm.md found. Run /forge brainstorm <objective> first.",
+              "No brainstorm.md. Run /forge brainstorm <objective> first.",
               "error",
             );
             return;
           }
-          const prompt = PLAN_PROMPT;
-          pi.sendUserMessage(prompt, { deliverAs: "followUp" });
+          writeState(ctx.cwd, { phase: "plan" });
+          updateStatus(ctx, ctx.cwd);
+          pi.sendUserMessage(PLAN_PROMPT, { deliverAs: "followUp" });
           break;
         }
 
         case "execute": {
-          const pp = planPath(ctx.cwd);
-          if (!fs.existsSync(pp)) {
-            ctx.ui.notify(
-              "No plan.md found. Run /forge plan first.",
-              "error",
-            );
+          if (!fs.existsSync(planPath(ctx.cwd))) {
+            ctx.ui.notify("No plan.md. Run /forge plan first.", "error");
             return;
           }
+          writeState(ctx.cwd, { phase: "forge" });
+          updateStatus(ctx, ctx.cwd);
           const useTribe = rest.includes("--tribe") || rest.includes("-t");
-          const prompt = useTribe
-            ? EXECUTE_TRIBE_PROMPT
-            : EXECUTE_SOLO_PROMPT;
-          pi.sendUserMessage(prompt, { deliverAs: "followUp" });
+          pi.sendUserMessage(
+            useTribe ? EXECUTE_TRIBE_PROMPT : EXECUTE_SOLO_PROMPT,
+            { deliverAs: "followUp" },
+          );
           break;
         }
 
         case "status": {
-          const pp = planPath(ctx.cwd);
-          if (!fs.existsSync(pp)) {
+          if (!fs.existsSync(planPath(ctx.cwd))) {
             ctx.ui.notify(
-              "No active forge plan. Use /forge brainstorm <objective> to start.",
+              "No active forge. Use /forge brainstorm <objective> to start.",
               "info",
             );
             return;
           }
-          const content = fs.readFileSync(pp, "utf-8");
-          const plan = parsePlan(content);
-          ctx.ui.notify(formatPlanStatus(plan), "info");
+          const tasks = parseTasks(fs.readFileSync(planPath(ctx.cwd), "utf-8"));
+          ctx.ui.notify(formatPlanStatus(tasks), "info");
+          updateStatus(ctx, ctx.cwd);
           break;
         }
 
         case "next": {
-          const pp = planPath(ctx.cwd);
-          if (!fs.existsSync(pp)) {
+          if (!fs.existsSync(planPath(ctx.cwd))) {
             ctx.ui.notify("No active forge plan.", "info");
             return;
           }
-          const content = fs.readFileSync(pp, "utf-8");
-          const plan = parsePlan(content);
-          const next = getNextTask(plan);
+          const tasks = parseTasks(fs.readFileSync(planPath(ctx.cwd), "utf-8"));
+          const next = getNextTask(tasks);
           if (!next) {
+            writeState(ctx.cwd, { phase: "done" });
+            updateStatus(ctx, ctx.cwd);
             ctx.ui.notify("✅ All tasks done. Forge complete.", "info");
             return;
           }
           pi.sendUserMessage(
-            `## 🔨 Next Task\n\n${next.text}\n\nMark it [x] in .pi/forge/plan.md when done.`,
+            `## 🔨 Next\n\n${next.text}\n\nMark [x] in plan.md when done.`,
             { deliverAs: "followUp" },
           );
           break;
         }
 
         default: {
+          // Show current state if no subcommand
+          const phase = detectPhase(ctx.cwd);
+          const icon = PHASE_ICONS[phase];
           ctx.ui.notify(
-            "Forge commands: brainstorm <obj> | plan | execute [--tribe] | status | next",
+            `${icon} Forge: ${phase}\nCommands: brainstorm <obj> | plan | execute [--tribe] | status | next`,
             "info",
           );
           break;
