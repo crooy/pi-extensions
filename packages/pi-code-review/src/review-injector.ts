@@ -23,11 +23,7 @@ export function buildReviewInjectionBlock(edits: TurnEdits): string | null {
 
   const checklist = buildLanguageSection(languages);
 
-  return `\n\n## Code Review
-
-You edited: ${fileList}. Before proceeding, briefly verify:${checklist}
-
-Fix any issues found, then continue.`;
+  return `\n\n## 👁️ Review\n\nEdited: ${fileList}. Quick verify:${checklist}\n\nFix issues, then continue.`;
 }
 
 export function handleBeforeAgentStart(

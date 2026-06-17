@@ -1,9 +1,11 @@
-# pi-extensions
+# 🪨 pi-extensions
 
-[![CI](https://github.com/MattDevy/pi-continuous-learning/workflows/CI/badge.svg)](https://github.com/MattDevy/pi-continuous-learning/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+> Fork of [MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions) — same tools, caveman tongue.
+> **All forks speak caveman.** Why use many token when few do trick. 🇳🇱🇫🇷🇩🇪
 
-A monorepo of [Pi](https://github.com/nicholasgasior/pi-coding-agent) extensions, built and released independently under `packages/`.
+A caveman-mode monorepo of [Pi](https://github.com/nicholasgasior/pi-coding-agent) extensions. — terse, technical, no fluff. Each package speaks caveman and ships with caveman-friendly AGENTS.md instructions.
+
+Packages built and released independently under `packages/`.
 
 ## Packages
 
@@ -12,11 +14,15 @@ A monorepo of [Pi](https://github.com/nicholasgasior/pi-coding-agent) extensions
 | [pi-continuous-learning](packages/pi-continuous-learning) | Observes coding sessions and distils patterns into reusable instincts with confidence scoring and closed-loop feedback | [![npm](https://img.shields.io/npm/v/pi-continuous-learning)](https://www.npmjs.com/package/pi-continuous-learning) |
 | [pi-red-green](packages/pi-red-green) | TDD enforcement for agent sessions: RED-GREEN-REFACTOR state machine with phase-specific prompt injection and test run detection | [![npm](https://img.shields.io/npm/v/pi-red-green)](https://www.npmjs.com/package/pi-red-green) |
 | [pi-compass](packages/pi-compass) | Codebase navigation: generates structured codemaps and interactive code tours for faster agent onboarding | [![npm](https://img.shields.io/npm/v/pi-compass)](https://www.npmjs.com/package/pi-compass) |
-| [pi-simplify](packages/pi-simplify) | Code simplification: reviews recently changed files for clarity, consistency, and maintainability | [![npm](https://img.shields.io/npm/v/pi-simplify)](https://www.npmjs.com/package/pi-simplify) |
+| [pi-caveman-simple](packages/pi-caveman-simple) | Caveman code simplification: carves recently changed code down to essential shape — clarity, consistency, no fluff | [![npm](https://img.shields.io/npm/v/pi-caveman-simple)](https://www.npmjs.com/package/pi-caveman-simple) |
 | [pi-code-review](packages/pi-code-review) | Automated code review: language-aware review after edits with structured findings | [![npm](https://img.shields.io/npm/v/pi-code-review)](https://www.npmjs.com/package/pi-code-review) |
 | [pi-blueprint](packages/pi-blueprint) | Multi-session planning: turns objectives into phased construction plans with dependency tracking and verification gates | [![npm](https://img.shields.io/npm/v/pi-blueprint)](https://www.npmjs.com/package/pi-blueprint) |
+| [pi-cavepeople](packages/pi-cavepeople) | Subagent delegation: caveman-mode child agents for review, planning, scouting, implementation. Fork of crooy/pi-cavepeople. | [![npm](https://img.shields.io/npm/v/pi-cavepeople)](https://www.npmjs.com/package/pi-cavepeople) |
+| [pi-caveman](packages/pi-caveman) | Caveman speak toggle: cuts ~75% output tokens with intensity levels inc. "mixed" (emoji + 🇳🇱/🇫🇷/🇩🇪). Fork of jonjonrankin/pi-caveman. | [![npm](https://img.shields.io/npm/v/pi-caveman)](https://www.npmjs.com/package/pi-caveman) |
 
 ## Development
+
+All AGENTS.md files enforce caveman mode — terse, no fluff, emoji + 🇳🇱/🇫🇷/🇩🇪 welcome.
 
 ```bash
 npm install                           # install all workspace dependencies

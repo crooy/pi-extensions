@@ -2,7 +2,7 @@ import type {
   ExtensionAPI,
   ExtensionCommandContext,
 } from "@earendil-works/pi-coding-agent";
-import { complete, getModel } from "@earendil-works/pi-ai";
+import { complete } from "@earendil-works/pi-ai";
 import { detectLanguage } from "./language-detector.js";
 import { buildReviewPrompt, buildFallbackPrompt } from "./review-prompt.js";
 import { parseReviewFindings, formatFindings } from "./review-parser.js";
@@ -10,7 +10,6 @@ import type { EditedFile } from "./types.js";
 
 export const COMMAND_NAME = "review";
 
-const HAIKU_MODEL_ID = "claude-haiku-4-5-20251001";
 const MAX_FILES = 10;
 
 interface ReviewOptions {
@@ -134,39 +133,35 @@ export async function handleReviewCommand(
     language: detectLanguage(path),
   }));
 
-  const apiKey = await ctx.modelRegistry.getApiKeyForProvider("anthropic");
-  if (apiKey) {
-    try {
-      const filesWithContent = await Promise.all(
-        editedFiles.map(async (f) => ({
-          ...f,
-          content: await readFileContent(pi, ctx.cwd, f.path),
-        })),
-      );
+  try {
+    const filesWithContent = await Promise.all(
+      editedFiles.map(async (f) => ({
+        ...f,
+        content: await readFileContent(pi, ctx.cwd, f.path),
+      })),
+    );
 
-      const prompt = buildReviewPrompt(filesWithContent);
-      const model = getModel("anthropic", HAIKU_MODEL_ID);
-      const context = {
-        messages: [{ role: "user" as const, content: prompt, timestamp: Date.now() }],
-      };
+    const prompt = buildReviewPrompt(filesWithContent);
+    const context = {
+      messages: [{ role: "user" as const, content: prompt, timestamp: Date.now() }],
+    };
 
-      const message = await complete(model, context, { apiKey });
-      const text = message.content
-        .filter((c) => c.type === "text")
-        .map((c) => (c as { type: "text"; text: string }).text)
-        .join("");
+    const message = await complete(ctx.model, context, { apiKey: ctx.apiKey });
+    const text = message.content
+      .filter((c) => c.type === "text")
+      .map((c) => (c as { type: "text"; text: string }).text)
+      .join("");
 
-      const findings = parseReviewFindings(text);
-      const formatted = formatFindings(findings);
+    const findings = parseReviewFindings(text);
+    const formatted = formatFindings(findings);
 
-      pi.sendUserMessage(
-        `Code review complete for ${capped.length} file(s):\n\n${formatted}`,
-        { deliverAs: "followUp" },
-      );
-      return;
-    } catch (err) {
-      console.warn("[pi-code-review] Haiku review failed, falling back to prompt:", err);
-    }
+    pi.sendUserMessage(
+      `Code review complete for ${capped.length} file(s):\n\n${formatted}`,
+      { deliverAs: "followUp" },
+    );
+    return;
+  } catch (err) {
+    console.warn("[pi-code-review] LLM review failed, falling back to prompt:", err);
   }
 
   const fallbackPrompt = buildFallbackPrompt(editedFiles);

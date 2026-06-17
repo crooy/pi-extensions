@@ -15,8 +15,10 @@
     "packages/pi-continuous-learning": {},
     "packages/pi-red-green": {},
     "packages/pi-compass": {},
-    "packages/pi-simplify": {},
+    "packages/pi-caveman-simple": {},
     "packages/pi-code-review": {},
-    "packages/pi-blueprint": {}
+    "packages/pi-blueprint": {},
+    "packages/pi-cavepeople": {},
+    "packages/pi-caveman": {}
   }
 }
