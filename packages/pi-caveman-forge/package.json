@@ -1,16 +1,16 @@
 {
-  "name": "pi-blueprint",
-  "version": "0.2.1",
-  "description": "A Pi extension that turns high-level objectives into phased, multi-session construction plans with dependency tracking and verification gates.",
+  "name": "pi-caveman-forge",
+  "version": "0.1.0",
+  "description": "Caveman planning forge: brainstorm → plan → execute. Produces brainstorm.md + plan.md with task lists. Optionally delegates to caveman subagents.",
   "type": "module",
   "license": "MIT",
   "author": "Matt Devy",
   "repository": {
     "type": "git",
     "url": "https://github.com/MattDevy/pi-extensions.git",
-    "directory": "packages/pi-blueprint"
+    "directory": "packages/pi-caveman-forge"
   },
-  "homepage": "https://github.com/MattDevy/pi-extensions/tree/main/packages/pi-blueprint#readme",
+  "homepage": "https://github.com/crooy/pi-extensions/tree/main/packages/pi-caveman-forge#readme",
   "bugs": {
     "url": "https://github.com/MattDevy/pi-extensions/issues"
   },
@@ -18,7 +18,8 @@
     "pi-package",
     "pi-extension",
     "pi-coding-agent",
-    "blueprint",
+    "caveman",
+    "forge",
     "planning",
     "multi-session",
     "dependency-tracking",

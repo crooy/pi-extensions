@@ -54,7 +54,7 @@ packages/
     skills/                 # Pi skills for subagent discovery
     scripts/                # Shell scripts (subagent-env, caveman-subagent)
     CHANGELOG.md            # Release history (managed by release-please)
-  pi-blueprint/             # Pi extension: multi-session planning with dependency tracking
+  pi-caveman-forge           # Pi extension: caveman planning forge (brainstorm → plan → execute)
     src/                    # TypeScript source + tests (*.test.ts alongside source)
     CHANGELOG.md            # Release history (managed by release-please)
   pi-caveman/               # Pi extension: caveman speak mode (cuts ~75% tokens)

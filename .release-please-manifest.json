@@ -4,7 +4,7 @@
   "packages/pi-compass": "0.2.1",
   "packages/pi-caveman-simple": "0.1.0",
   "packages/pi-code-review": "0.2.1",
-  "packages/pi-blueprint": "0.2.1",
+  "packages/pi-caveman-forge": "0.1.0",
   "packages/pi-cavepeople": "0.26.0",
   "packages/pi-caveman": "0.1.0"
 }

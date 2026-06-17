@@ -4,7 +4,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 PACKAGES=(
   pi-caveman-learning
-  pi-blueprint
+  pi-caveman-forge
   pi-code-review
   pi-compass
   pi-red-green

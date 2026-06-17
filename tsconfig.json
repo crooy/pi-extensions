@@ -7,7 +7,7 @@
     { "path": "packages/pi-compass" },
     { "path": "packages/pi-caveman-simple" },
     { "path": "packages/pi-code-review" },
-    { "path": "packages/pi-blueprint" },
+    { "path": "packages/pi-caveman-forge" },
     { "path": "packages/pi-cavepeople" }
   ]
 }
