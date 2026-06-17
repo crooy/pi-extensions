@@ -1,11 +1,11 @@
-# pi-simplify
+# pi-caveman-simple
 
 A [Pi](https://github.com/nicholasgasior/pi-coding-agent) extension that reviews recently changed code for clarity, consistency, and maintainability improvements.
 
 ## Installation
 
 ```bash
-pi install npm:pi-simplify
+pi install npm:pi-caveman-simple
 ```
 
 ## Usage

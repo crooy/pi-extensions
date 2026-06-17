@@ -1,5 +1,5 @@
 /**
- * Configuration module for pi-continuous-learning.
+ * Configuration module for pi-caveman-learning.
  * Loads user settings from ~/.pi/continuous-learning/config.json with defaults.
  */
 
@@ -155,7 +155,7 @@ export function loadConfig(): Config {
     raw = fs.readFileSync(CONFIG_PATH, "utf-8") as string;
   } catch (err) {
     console.warn(
-      `[pi-continuous-learning] Failed to read config.json: ${String(err)}`,
+      `[pi-caveman-learning] Failed to read config.json: ${String(err)}`,
     );
     return { ...DEFAULT_CONFIG };
   }
@@ -165,7 +165,7 @@ export function loadConfig(): Config {
     parsed = JSON.parse(raw);
   } catch (err) {
     console.warn(
-      `[pi-continuous-learning] Invalid JSON in config.json: ${String(err)}. Using defaults.`,
+      `[pi-caveman-learning] Invalid JSON in config.json: ${String(err)}. Using defaults.`,
     );
     return { ...DEFAULT_CONFIG };
   }

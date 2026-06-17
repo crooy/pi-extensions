@@ -1,5 +1,5 @@
 /**
- * Tool call observation handlers for pi-continuous-learning.
+ * Tool call observation handlers for pi-caveman-learning.
  * Captures tool_execution_start and tool_execution_end events as JSONL observations.
  */
 

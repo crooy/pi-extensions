@@ -11,7 +11,7 @@ Packages built and released independently under `packages/`.
 
 | Package | Description | npm |
 |---|---|---|
-| [pi-continuous-learning](packages/pi-continuous-learning) | Observes coding sessions and distils patterns into reusable instincts with confidence scoring and closed-loop feedback | [![npm](https://img.shields.io/npm/v/pi-continuous-learning)](https://www.npmjs.com/package/pi-continuous-learning) |
+| [pi-caveman-learning](packages/pi-caveman-learning) | Caveman memory: watches coding sessions, distills patterns into instincts with confidence scoring. Fire keeps knowledge alive. | [![npm](https://img.shields.io/npm/v/pi-caveman-learning)](https://www.npmjs.com/package/pi-caveman-learning) |
 | [pi-red-green](packages/pi-red-green) | TDD enforcement for agent sessions: RED-GREEN-REFACTOR state machine with phase-specific prompt injection and test run detection | [![npm](https://img.shields.io/npm/v/pi-red-green)](https://www.npmjs.com/package/pi-red-green) |
 | [pi-compass](packages/pi-compass) | Codebase navigation: generates structured codemaps and interactive code tours for faster agent onboarding | [![npm](https://img.shields.io/npm/v/pi-compass)](https://www.npmjs.com/package/pi-compass) |
 | [pi-caveman-simple](packages/pi-caveman-simple) | Caveman code simplification: carves recently changed code down to essential shape — clarity, consistency, no fluff | [![npm](https://img.shields.io/npm/v/pi-caveman-simple)](https://www.npmjs.com/package/pi-caveman-simple) |

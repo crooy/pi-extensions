@@ -1,5 +1,5 @@
 /**
- * /instinct-projects command for pi-continuous-learning.
+ * /instinct-projects command for pi-caveman-learning.
  * Displays all known projects with their instinct counts and last seen dates.
  */
 

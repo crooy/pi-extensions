@@ -30,7 +30,7 @@ This is an npm workspaces monorepo. All Pi extensions live under `packages/`. Ea
 
 ```text
 packages/
-  pi-continuous-learning/   # Pi extension: continuous learning via instincts
+  pi-caveman-learning/      # Pi extension: caveman memory (watches sessions, distills instincts)
     src/                    # TypeScript source + tests (*.test.ts alongside source)
     docs/                   # Package documentation (internals.md, specification.md)
     AGENTS.md               # Package-level conventions, directory structure, testing
@@ -74,8 +74,8 @@ Individual commands:
 
 ```bash
 npm test                                                       # run all package tests
-npm test -w packages/pi-continuous-learning -- src/foo.test.ts # single file
-npm test -w packages/pi-continuous-learning -- -t "pattern"    # by name pattern
+npm test -w packages/pi-caveman-learning -- src/foo.test.ts # single file
+npm test -w packages/pi-caveman-learning -- -t "pattern"    # by name pattern
 npm run typecheck                                              # type-check all packages
 npm run lint                                                   # ESLint on all packages
 npm run build                                                  # compile all packages to dist/
@@ -86,7 +86,7 @@ bash install-all.sh
 
 ## Working on a specific package
 
-When working inside `packages/pi-continuous-learning`, refer to `packages/pi-continuous-learning/AGENTS.md` for:
+When working inside `packages/pi-caveman-learning`, refer to `packages/pi-caveman-learning/AGENTS.md` for:
 - Code conventions specific to that package
 - Full directory structure with file descriptions
 - Testing approach

@@ -1,5 +1,5 @@
 /**
- * Shared TypeScript interfaces for pi-continuous-learning.
+ * Shared TypeScript interfaces for pi-caveman-learning.
  * All modules import from this file for consistent data contracts.
  */
 

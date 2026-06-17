@@ -1,18 +1,16 @@
-![pi-continuous-learning banner](docs/images/banner.png)
+![pi-caveman-learning banner](docs/images/banner.png)
 
-# pi-continuous-learning
+# pi-caveman-learning 🧠🔥
 
-> A [Pi](https://github.com/nicholasgasior/pi-coding-agent) extension that watches your coding sessions and distils patterns into reusable **instincts** — atomic learned behaviours with confidence scoring, project scoping, and closed-loop feedback validation.
+> Fork of pi-continuous-learning. Caveman memory: watches coding sessions, distills patterns into instincts with confidence scoring. Fire keeps knowledge alive.
 
-[![CI](https://github.com/MattDevy/pi-continuous-learning/workflows/CI/badge.svg)](https://github.com/MattDevy/pi-continuous-learning/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/pi-continuous-learning)](https://www.npmjs.com/package/pi-continuous-learning)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
 ## What it does
 
-Pi is smart — but it starts every session with no memory of what worked yesterday. `pi-continuous-learning` fixes that.
+Pi is smart — but it starts every session with no memory of what worked yesterday. `pi-caveman-learning` fixes that.
 
 The extension silently observes your sessions, identifies recurring patterns, and writes them as **instincts**: small, scoped rules stored on your machine. Before each agent turn, relevant instincts are injected into the system prompt so Pi already knows your conventions, preferred tools, and workflows — without you repeating yourself.
 
@@ -33,7 +31,7 @@ Session events → Observations → Analyzer → Instincts
 ## Installation
 
 ```bash
-pi install npm:pi-continuous-learning
+pi install npm:pi-caveman-learning
 ```
 
 This installs the extension globally and makes the `pi-cl-analyze` CLI available on your PATH.
@@ -450,7 +448,7 @@ All data stays local on your machine:
 ## Updating
 
 ```bash
-pi install npm:pi-continuous-learning
+pi install npm:pi-caveman-learning
 ```
 
 Your observations, instincts, and configuration in `~/.pi/continuous-learning/` are preserved across updates. If you have a launchd schedule set up, no changes are needed.

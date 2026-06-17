@@ -1,5 +1,5 @@
 /**
- * Error logging utility for pi-continuous-learning.
+ * Error logging utility for pi-caveman-learning.
  * Writes structured error entries to projects/<id>/analyzer.log.
  * All write failures are silently swallowed - the logger must never throw.
  */
@@ -13,7 +13,7 @@ import { getProjectDir, getBaseDir } from "./storage.js";
 // ---------------------------------------------------------------------------
 
 const LOG_FILENAME = "analyzer.log";
-const PREFIX = "[pi-continuous-learning]";
+const PREFIX = "[pi-caveman-learning]";
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -3,8 +3,8 @@
 ## Development setup
 
 ```bash
-git clone https://github.com/MattDevy/pi-continuous-learning.git
-cd pi-continuous-learning
+git clone https://github.com/crooy/pi-extensions.git
+cd pi-extensions
 npm install
 ```
 
@@ -14,8 +14,8 @@ Node.js >= 18 required.
 
 ```bash
 npm test                                                        # run all tests
-npm test -w packages/pi-continuous-learning -- src/foo.test.ts  # run a single file
-npm test -w packages/pi-continuous-learning -- -t "pattern"     # run tests matching a name
+npm test -w packages/pi-caveman-learning -- src/foo.test.ts  # run a single file
+npm test -w packages/pi-caveman-learning -- -t "pattern"     # run tests matching a name
 npm run typecheck               # type-check without emitting
 npm run lint                    # ESLint
 npm run check                   # tests + lint + typecheck (mirrors CI)

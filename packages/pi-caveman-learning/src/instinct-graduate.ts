@@ -1,5 +1,5 @@
 /**
- * /instinct-graduate command for pi-continuous-learning.
+ * /instinct-graduate command for pi-caveman-learning.
  *
  * Scans instincts for graduation candidates, presents proposals to the user,
  * and writes to AGENTS.md / scaffolds skills / scaffolds commands on approval.

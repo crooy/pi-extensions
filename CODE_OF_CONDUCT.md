@@ -24,7 +24,7 @@ Examples of unacceptable behaviour:
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behaviour may be reported by opening a [GitHub issue](https://github.com/MattDevy/pi-continuous-learning/issues) or contacting the maintainer directly via GitHub. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances.
+Instances of abusive, harassing, or otherwise unacceptable behaviour may be reported by opening a [GitHub issue](https://github.com/crooy/pi-extensions/issues) or contacting the maintainer directly via GitHub. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances.
 
 ## Attribution
 

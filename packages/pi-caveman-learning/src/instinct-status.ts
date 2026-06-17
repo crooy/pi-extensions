@@ -1,5 +1,5 @@
 /**
- * /instinct-status command for pi-continuous-learning.
+ * /instinct-status command for pi-caveman-learning.
  * Displays all instincts grouped by domain with confidence scores,
  * trend arrows, and feedback ratios.
  */

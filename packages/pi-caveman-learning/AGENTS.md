@@ -1,4 +1,4 @@
-# pi-continuous-learning
+# pi-caveman-learning
 
 ## Caveman Mode
 
@@ -35,14 +35,14 @@ npm run check
 Individual commands (from repo root):
 
 ```bash
-npm test -w packages/pi-continuous-learning              # run all tests for this package
-npm test -w packages/pi-continuous-learning -- src/foo.test.ts  # single file
+npm test -w packages/pi-caveman-learning              # run all tests for this package
+npm test -w packages/pi-caveman-learning -- src/foo.test.ts  # single file
 npm run typecheck                                        # type-check
 npm run lint                                             # ESLint
 npm run build                                            # compile to dist/
 ```
 
-Or from within `packages/pi-continuous-learning/`:
+Or from within `packages/pi-caveman-learning/`:
 
 ```bash
 npm test                        # run all tests
@@ -66,7 +66,7 @@ npm run build                   # compile to dist/
 ## Directory Structure
 
 ```text
-packages/pi-continuous-learning/
+packages/pi-caveman-learning/
   package.json              # pi-package manifest
   src/
     index.ts                # Extension entry point (default export)

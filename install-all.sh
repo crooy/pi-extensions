@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 PACKAGES=(
-  pi-continuous-learning
+  pi-caveman-learning
   pi-blueprint
   pi-code-review
   pi-compass
@@ -35,5 +35,5 @@ echo ""
 echo "✅ All extensions installed."
 echo ""
 echo "Usage:"
-echo "  pi -e pi-continuous-learning   # or any other extension"
+echo "  pi -e pi-caveman-learning   # or any other extension"
 echo "  pi                              # all enabled extensions auto-load"

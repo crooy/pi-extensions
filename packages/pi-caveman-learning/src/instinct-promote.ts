@@ -1,5 +1,5 @@
 /**
- * /instinct-promote command for pi-continuous-learning.
+ * /instinct-promote command for pi-caveman-learning.
  * Promotes project-scoped instincts to global scope.
  *
  * With an ID argument: promotes that specific project instinct to global.

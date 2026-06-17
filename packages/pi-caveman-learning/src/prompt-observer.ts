@@ -1,5 +1,5 @@
 /**
- * User prompt and agent end observation handlers for pi-continuous-learning.
+ * User prompt and agent end observation handlers for pi-caveman-learning.
  * Captures before_agent_start (user_prompt) and agent_end events as JSONL observations.
  */
 

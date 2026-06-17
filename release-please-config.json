@@ -12,7 +12,7 @@
     }
   ],
   "packages": {
-    "packages/pi-continuous-learning": {},
+    "packages/pi-caveman-learning": {},
     "packages/pi-red-green": {},
     "packages/pi-compass": {},
     "packages/pi-caveman-simple": {},

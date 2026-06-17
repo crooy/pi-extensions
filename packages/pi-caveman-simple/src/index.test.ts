@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import registerExtension from "./index.js";
 
-describe("pi-simplify extension", () => {
+describe("pi-caveman-simple extension", () => {
   it("registers the simplify command", () => {
     const pi = {
       registerCommand: vi.fn(),

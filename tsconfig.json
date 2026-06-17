@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "files": [],
   "references": [
-    { "path": "packages/pi-continuous-learning" },
+    { "path": "packages/pi-caveman-learning" },
     { "path": "packages/pi-red-green" },
     { "path": "packages/pi-compass" },
     { "path": "packages/pi-caveman-simple" },

@@ -1,5 +1,5 @@
 /**
- * System prompt injection for pi-continuous-learning.
+ * System prompt injection for pi-caveman-learning.
  * Loads filtered instincts and appends them to the system prompt on each
  * before_agent_start event so the agent benefits from learned behaviors.
  * Also bridges injected instinct IDs to shared active-instincts state (US-023).
