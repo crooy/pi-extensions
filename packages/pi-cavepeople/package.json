@@ -91,7 +91,7 @@
     "typebox": "^1.2.14"
   },
   "devDependencies": {
-    "@earendil-works/pi-agent-core": "^0.74.0",
+    "@earendil-works/pi-agent-core": "^0.79.6",
     "@earendil-works/pi-ai": "^0.74.0",
     "@earendil-works/pi-coding-agent": "^0.74.0",
     "typescript": "^6.0.3"
