@@ -1,57 +1,59 @@
-# pi-blueprint
+# pi-caveman-forge 🔨
 
-A Pi extension that turns high-level objectives into phased, multi-session construction plans with dependency tracking and verification gates.
+Brainstorm → Plan → Execute. Caveman planning forge. Fork of pi-blueprint.
 
-## Installation
+## Workflow
+
+```
+/forge brainstorm "OAuth2 login"  →  .pi/forge/brainstorm.md
+/forge plan                        →  .pi/forge/plan.md (checklist)
+/forge execute                     →  main agent works tasks
+/forge execute --tribe             →  caveman subagents per task
+/forge status                      →  show progress
+/forge next                        →  show next pending task
+```
+
+## TUI Status Bar
+
+Footer shows forge phase:
+
+| Bar | Meaning |
+|---|---|
+| `⛏️` | No forge active |
+| `🧠 brainstorm` | Brainstorming |
+| `📋 8t` | Plan ready, 8 tasks |
+| `🔨 3/8` | Executing, 3 done |
+| `✅ 8/8` | All complete |
+
+## Plan Format
+
+```md
+# Plan: OAuth2 login
+
+## Phase 1: Database
+- [x] Task 1.1: Create users table
+- [x] Task 1.2: Add refresh token table
+
+## Phase 2: Endpoints
+- [ ] Task 2.1: POST /auth/login
+- [ ] Task 2.2: POST /auth/refresh
+```
+
+Agent reads/writes `[ ]` / `[x]` checkboxes with normal edit tool.
+
+## Install
 
 ```bash
-pi install npm:pi-blueprint
+pi install npm:pi-caveman-forge
 ```
 
-## Commands
-
-| Command | Description |
-|---|---|
-| `/blueprint <objective>` | Generate a phased plan from an objective |
-| `/blueprint abandon` | Abandon the active blueprint |
-| `/plan-status` | Show detailed progress with completion percentage |
-| `/plan-verify` | Run verification gates for the current phase |
-| `/plan-next` | Get and start the next actionable task |
-
-## LLM Tools
-
-| Tool | Description |
-|---|---|
-| `blueprint_create` | Create a new blueprint from structured phases |
-| `blueprint_status` | Get current plan progress |
-| `blueprint_update` | Mark tasks as completed, in_progress, or skipped |
-| `blueprint_next` | Get the next actionable task |
-
-## How It Works
-
-1. Run `/blueprint "Add OAuth2 authentication"` to start
-2. The LLM generates a phased plan with tasks, dependencies, and verification gates
-3. On each session start, the active blueprint context is injected into the system prompt
-4. Use `/plan-next` to work through tasks sequentially
-5. Use `/plan-verify` to run phase verification gates (tests, typecheck) before advancing
-6. Progress persists across sessions in `~/.pi/blueprints/`
-
-## Storage
+## Files
 
 ```
-~/.pi/blueprints/
-  index.json              # Active blueprint pointer
-  <blueprint-id>/
-    plan.md               # Human-readable plan (auto-generated)
-    state.json            # Machine-readable state (source of truth)
-    history.jsonl          # Audit log of state transitions
-    sessions.json          # Session-to-task mapping
+.pi/forge/
+├── brainstorm.md      # brainstorm output (approach, risks, files, questions)
+├── plan.md            # task checklist with [ ] / [x]
+└── state.json         # current forge phase
 ```
 
-## Features
-
-- **Phased execution**: Work is decomposed into ordered phases with verification gates
-- **Dependency tracking**: Tasks declare dependencies; blocked tasks are surfaced automatically
-- **Verification gates**: Tests, type-check, user approval, or custom commands gate phase advancement
-- **Multi-session persistence**: Plan state survives session restarts with context injection
-- **Cycle detection**: Dependency cycles are rejected at blueprint creation time
+Plain markdown. Survives Pi restart. Multi-session safe.
