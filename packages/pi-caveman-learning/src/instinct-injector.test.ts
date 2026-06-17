@@ -120,8 +120,8 @@ describe("buildInjectionBlock", () => {
       }),
     ];
     const block = buildInjectionBlock(instincts);
-    expect(block).toContain(".8 trigger A → action A");
-    expect(block).toContain(".6 trigger B → action B");
+    expect(block).toContain(".80 trigger A → action A");
+    expect(block).toContain(".60 trigger B → action B");
   });
 
   it("starts with two newlines before the header", () => {
