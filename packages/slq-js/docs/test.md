@@ -1,6 +1,6 @@
-# 🪨 2026-06-18-done-test
+# 🪨 test
 
-> GOAL: Done test
+> GOAL: Blocked
 
 Architecture
 - Quick plan scope, key decisions
