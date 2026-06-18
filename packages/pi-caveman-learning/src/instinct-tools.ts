@@ -1,4 +1,5 @@
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+// Added for Intellij domain
+
 import { Type, type Static, StringEnum } from "@earendil-works/pi-ai";
 import { unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";

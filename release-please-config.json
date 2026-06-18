@@ -19,6 +19,7 @@
     "packages/pi-code-review": {},
     "packages/pi-caveman-forge": {},
     "packages/pi-cavepeople": {},
-    "packages/pi-caveman": {}
+    "packages/pi-caveman": {},
+    "packages/pi-superpowers": {}
   }
 }

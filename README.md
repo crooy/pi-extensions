@@ -19,6 +19,8 @@ Packages built and released independently under `packages/`.
 | [pi-caveman-forge](packages/pi-caveman-forge) | Caveman planning forge: brainstorm → plan → execute. Produces brainstorm.md + plan.md, optionally delegates to caveman subagents. | [![npm](https://img.shields.io/npm/v/pi-caveman-forge)](https://www.npmjs.com/package/pi-caveman-forge) |
 | [pi-cavepeople](packages/pi-cavepeople) | Subagent delegation: caveman-mode child agents for review, planning, scouting, implementation. Fork of crooy/pi-cavepeople. | [![npm](https://img.shields.io/npm/v/pi-cavepeople)](https://www.npmjs.com/package/pi-cavepeople) |
 | [pi-caveman](packages/pi-caveman) | Caveman speak toggle: cuts ~75% output tokens with intensity levels inc. "mixed" (emoji + 🇳🇱/🇫🇷/🇩🇪). Fork of jonjonrankin/pi-caveman. | [![npm](https://img.shields.io/npm/v/pi-caveman)](https://www.npmjs.com/package/pi-caveman) |
+| [pi-superpowers](packages/pi-superpowers) | Caveman superpowers: Obra's methodology in 🪨 tongue. 14 skills, writes caveman docs. | (bundle only) |
+| [slq-js](packages/slq-js) | 🪨 SQLite queue CLI for pi workers. TS, sql.js. slq + pi-slq-loop. | (CLI tool) |
 
 ## Development
 

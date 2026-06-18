@@ -11,6 +11,7 @@ PACKAGES=(
   pi-caveman-simple
   pi-cavepeople
   pi-caveman
+  pi-superpowers
 )
 
 echo "🔨 Installing all pi-extensions from local repo..."
@@ -23,6 +24,17 @@ npm install --silent
 
 echo "🏗️  npm run build..."
 npm run build
+
+echo "🔨 Building slq Go CLI..."
+cd "$REPO_DIR/slq"
+go build -o slq .
+cp slq ~/.local/bin/slq 2>/dev/null || true
+
+echo "📦 Installing slq-js (TS CLI)..."
+cd "$REPO_DIR/packages/slq-js"
+npm install --silent
+# symlink for global access
+npm link 2>/dev/null || true
 
 # 2. Install each extension via pi
 echo ""

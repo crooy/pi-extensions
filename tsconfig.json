@@ -8,6 +8,7 @@
     { "path": "packages/pi-caveman-simple" },
     { "path": "packages/pi-code-review" },
     { "path": "packages/pi-caveman-forge" },
-    { "path": "packages/pi-cavepeople" }
+    { "path": "packages/pi-cavepeople" },
+    { "path": "packages/pi-superpowers" }
   ]
 }

@@ -34,6 +34,7 @@ export const KNOWN_DOMAINS = new Set([
   "devops",
   "architecture",
   "other",
+  "intellij",
 ]);
 
 // ---------------------------------------------------------------------------

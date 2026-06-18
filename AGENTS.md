@@ -60,6 +60,17 @@ packages/
   pi-caveman/               # Pi extension: caveman speak mode (cuts ~75% tokens)
     extensions/             # Extension source (caveman.ts)
     CHANGELOG.md            # Release history (managed by release-please)
+  pi-superpowers/            # Pi extension: caveman superpowers (brainstorm → plan → execute)
+    extensions/             # Caveman bootstrap extension
+    skills/                 # 14 caveman-ified superpowers skills
+    AGENTS.md               # Package conventions
+    README.md               # Package docs
+  slq-js/                    # SQLite queue CLI (TS, sql.js) + pi-slq-loop bash wrapper
+    src/                    # CLI source
+    loop/                   # pi-slq-loop.sh bash wrapper
+    tests/                  # vitest tests
+    README.md
+    AGENTS.md
 ```
 
 ## Commands (run from repo root)

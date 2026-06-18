@@ -6,5 +6,6 @@
   "packages/pi-code-review": "0.2.1",
   "packages/pi-caveman-forge": "0.1.0",
   "packages/pi-cavepeople": "0.26.0",
-  "packages/pi-caveman": "0.1.0"
+  "packages/pi-caveman": "0.1.0",
+  "packages/pi-superpowers": "0.1.0"
 }

@@ -19,10 +19,12 @@
       "./packages/pi-caveman-simple/dist/index.js",
       "./packages/pi-code-review/dist/index.js",
       "./packages/pi-compass/dist/index.js",
-      "./packages/pi-red-green/dist/index.js"
+      "./packages/pi-red-green/dist/index.js",
+    "./packages/pi-superpowers/extensions/superpowers.ts"
     ],
     "skills": [
-      "./packages/pi-cavepeople/skills"
+      "./packages/pi-cavepeople/skills",
+      "./packages/pi-superpowers/skills"
     ],
     "prompts": [
       "./packages/pi-cavepeople/prompts"
