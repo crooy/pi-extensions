@@ -76,4 +76,8 @@ function createSchema(database: Database): void {
   )`);
   database.run("CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status)");
   database.run("CREATE INDEX IF NOT EXISTS idx_tasks_created ON tasks(created_at)");
+  // Migration: add worker_pid column if missing
+  try {
+    database.run("ALTER TABLE tasks ADD COLUMN worker_pid INTEGER");
+  } catch { /* column already exists */ }
 }

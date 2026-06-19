@@ -1,6 +1,7 @@
 // Added for Intellij domain
 
 import { Type, type Static, StringEnum } from "@earendil-works/pi-ai";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import type { Instinct } from "./types.js";
@@ -468,7 +469,7 @@ export function createInstinctMergeTool(
 }
 
 export function registerAllTools(
-  pi: any,
+  pi: ExtensionAPI,
   projectId: string | null,
   projectName: string | null,
   baseDir?: string,

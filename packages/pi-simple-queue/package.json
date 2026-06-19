@@ -1,7 +1,7 @@
 {
   "name": "pi-simple-queue",
   "version": "0.1.0",
-  "description": "🪨 siq — caveman sqlite queue for pi workers. CLI in TS, loop in bash.",
+  "description": "🪨 slq — caveman sqlite queue for pi workers. CLI + loop daemon in TS.",
   "type": "module",
   "bin": {
     "slq": "./src/index.ts",
@@ -9,7 +9,6 @@
   },
   "files": [
     "src",
-    "loop",
     "README.md"
   ],
   "scripts": {

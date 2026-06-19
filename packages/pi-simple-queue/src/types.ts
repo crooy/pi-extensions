@@ -16,6 +16,7 @@ export interface Task {
   created_at: string;
   picked_at?: string;
   completed_at?: string;
+  worker_pid?: number;
 }
 
 export interface TaskOutput {

@@ -29,10 +29,46 @@ export function addTask(task: Task): Task {
   return task;
 }
 
+function isPidAlive(pid: number): boolean {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function reclaimDeadPids(): void {
+  const db = getDb();
+  const result = db.exec("SELECT id, worker_pid FROM tasks WHERE status = 'active' AND worker_pid IS NOT NULL");
+  if (!result.length) return;
+  const rows = result[0]!.values;
+  for (const row of rows) {
+    const id = row[0] as string;
+    const pid = row[1] as number;
+    if (!isPidAlive(pid)) {
+      const retryResult = db.exec("SELECT retries, max_retries FROM tasks WHERE id = ?", [id]);
+      if (!retryResult.length) continue;
+      const rr = retryResult[0]!.values[0]!;
+      const [retries, maxRetries] = rr as [number, number];
+      if (retries < maxRetries) {
+        db.run("UPDATE tasks SET status = 'pending', retries = retries + 1, worker_pid = NULL, picked_at = NULL WHERE id = ?", [id]);
+        console.error(`💀 ${id}: worker PID ${pid} dead — re-queued`);
+      } else {
+        db.run("UPDATE tasks SET status = 'failed', error = 'worker pid dead, max retries exceeded', worker_pid = NULL, completed_at = datetime('now') WHERE id = ?", [id]);
+        console.error(`💀 ${id}: worker PID ${pid} dead — failed (max retries)`);
+      }
+    }
+  }
+}
+
 export function pickTask(): Task | null {
   const db = getDb();
 
-  // 1. Release stale
+  // 0. Reclaim tasks whose worker PID is dead
+  reclaimDeadPids();
+
+  // 1. Release stale (timeout fallback for hung-but-alive processes)
   db.run(`UPDATE tasks SET status = 'pending', retries = retries + 1, picked_at = NULL
     WHERE status = 'active'
     AND datetime(picked_at, '+' || timeout_sec || ' seconds') < datetime('now')
@@ -74,9 +110,15 @@ export function pickTask(): Task | null {
   return task;
 }
 
+export function setWorkerPid(id: string, pid: number): void {
+  const db = getDb();
+  db.run("UPDATE tasks SET worker_pid = ? WHERE id = ?", [pid, id]);
+  saveDb();
+}
+
 export function doneTask(id: string, outputJson: string): void {
   const db = getDb();
-  db.run(`UPDATE tasks SET status = 'done', output = ?, completed_at = datetime('now') WHERE id = ?`,
+  db.run(`UPDATE tasks SET status = 'done', output = ?, completed_at = datetime('now'), worker_pid = NULL WHERE id = ?`,
     [outputJson, id]);
 
   // Unblock dependents
@@ -104,10 +146,10 @@ export function failTask(id: string, errMsg: string): void {
   const [retries, maxRetries] = row as [number, number];
 
   if (retries < maxRetries - 1) {
-    db.run(`UPDATE tasks SET status = 'pending', retries = retries + 1, picked_at = NULL, error = ? WHERE id = ?`,
+    db.run(`UPDATE tasks SET status = 'pending', retries = retries + 1, picked_at = NULL, worker_pid = NULL, error = ? WHERE id = ?`,
       [errMsg, id]);
   } else {
-    db.run(`UPDATE tasks SET status = 'failed', error = ?, completed_at = datetime('now') WHERE id = ?`,
+    db.run(`UPDATE tasks SET status = 'failed', error = ?, completed_at = datetime('now'), worker_pid = NULL WHERE id = ?`,
       [errMsg, id]);
   }
   saveDb();
@@ -116,7 +158,7 @@ export function failTask(id: string, errMsg: string): void {
 export function listTasks(): Task[] {
   const db = getDb();
   const result = db.exec(`SELECT id, skill, cwd, goal, plan_path, context, model, status, output, error,
-    retries, max_retries, timeout_sec, created_at, picked_at, completed_at
+    retries, max_retries, timeout_sec, created_at, picked_at, completed_at, worker_pid
     FROM tasks ORDER BY created_at ASC`);
 
   if (!result.length) return [];

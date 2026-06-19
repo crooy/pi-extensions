@@ -41,19 +41,24 @@ packages/
     extensions/             # Bootstrap extension
     skills/                 # 14 skill SKILL.md files
     AGENTS.md
-  pi-simple-queue/           # TS queue CLI (slq) + pi-slq-loop bash wrapper
-    src/                    # CLI source
-    loop/                   # pi-slq-loop.sh
+  pi-simple-queue/           # TS queue CLI (slq) + pi-slq-loop daemon
+    src/                    # CLI + daemon source
     tests/                  # vitest tests
     README.md
 ```
 
 ## Commands (run from repo root)
 
-After ANY code change, run the full check:
+After ANY code change, run full verification:
 
 ```bash
-npm run check
+bash scripts/release.sh   # build + test + typecheck + lint + push
+```
+
+Quick check (no tests, no build):
+
+```bash
+npm run check             # typecheck + lint only
 ```
 
 Individual commands:

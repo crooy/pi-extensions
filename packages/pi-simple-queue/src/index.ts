@@ -77,14 +77,15 @@ async function main() {
     .command("list", "List tasks", {}, () => {
       const tasks = listTasks();
       if (!tasks.length) { console.log("📭 Queue empty"); return; }
-      console.log("ID".padEnd(18) + "SKILL".padEnd(16) + "STATUS".padEnd(11) + "RETRIES".padEnd(8) + "PLAN_PATH".padEnd(30) + "GOAL");
-      console.log("—".repeat(100));
+      console.log("ID".padEnd(18) + "SKILL".padEnd(16) + "STATUS".padEnd(11) + "RETRIES".padEnd(8) + "PID".padEnd(8) + "PLAN_PATH".padEnd(26) + "GOAL");
+      console.log("—".repeat(110));
       for (const t of tasks) {
-        const pp = t.plan_path ? t.plan_path.slice(0, 28) : "-";
+        const pp = t.plan_path ? t.plan_path.slice(0, 24) : "-";
+        const pid = t.worker_pid ? String(t.worker_pid) : "-";
         console.log(
           t.id.padEnd(18) + t.skill.padEnd(16) +
           `${statusIcon(t.status)} ${t.status}`.padEnd(13) +
-          String(t.retries).padEnd(8) + pp.padEnd(30) + t.goal.slice(0, 40)
+          String(t.retries).padEnd(8) + pid.padEnd(8) + pp.padEnd(26) + t.goal.slice(0, 40)
         );
       }
     })
@@ -93,6 +94,16 @@ async function main() {
       const counts = taskCounts();
       for (const s of ["blocked", "pending", "active", "done", "failed"]) {
         if (counts[s]) console.log(`  ${statusIcon(s)} ${s}: ${counts[s]}`);
+      }
+      // Show active tasks with PIDs
+      const db = getDb();
+      const active = db.exec("SELECT id, worker_pid, goal FROM tasks WHERE status = 'active'");
+      if (active.length && active[0]!.values?.length) {
+        console.log("\n  🔄 Active:");
+        for (const row of active[0]!.values) {
+          const pid = row[1] ? ` (PID ${row[1]})` : "";
+          console.log(`    ${row[0]}${pid}: ${(row[2] as string).slice(0, 60)}`);
+        }
       }
     })
 

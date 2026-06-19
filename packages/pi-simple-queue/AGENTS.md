@@ -1,6 +1,6 @@
 # 🪨 pi-simple-queue — Caveman John SQL Queue
 
-TS CLI, sql.js. Loop is pi-slq-loop. Plan docs default docs/plans.
+TS CLI + daemon, sql.js. Loop is pi-slq-loop TS daemon. Plan docs default docs/plans.
 
 ## Commands
 
@@ -22,8 +22,10 @@ TS CLI, sql.js. Loop is pi-slq-loop. Plan docs default docs/plans.
 
 ## Loop
 
-`pi-slq-loop` bash script continues picking tasks and dispatching to pi worker.
+`pi-slq-loop` TS daemon picks tasks from DB, dispatches to pi worker.
 Logs per task to `~/.pi/slq-loop/<task-id>.log`. Rotated after 7d.
+Handles SIGTERM/SIGINT (kills worker, fails task, cleans PID).
+Validates CWD before spawn. Reclaims stale active tasks on restart.
 
 Telemetry at `~/.pi/slq/telemetry.jsonl` (lightweight JSONL, non-critical).
 Plan skeletons auto-generated at `docs/plans/<date>-<topic>.md`.

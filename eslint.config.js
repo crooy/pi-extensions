@@ -37,4 +37,10 @@ export default [
   {
     ignores: ["packages/*/dist/**", "node_modules/**", "**/*.config.ts", "**/*.config.js"],
   },
+  {
+    files: ["packages/pi-simple-queue/src/**/*.ts"],
+    rules: {
+      "no-console": "off",
+    },
+  },
 ];
