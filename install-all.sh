@@ -22,9 +22,12 @@ cd "$REPO_DIR/packages/pi-simple-queue"
 npm install --silent
 npm link 2>/dev/null || true
 
+# back to repo root for package installs
+cd "$REPO_DIR"
+
 for pkg in "${PACKAGES[@]}"; do
-  echo "🧩 pi install ./packages/$pkg ..."
-  pi install "./packages/$pkg"
+  echo "🧩 pi install $REPO_DIR/packages/$pkg ..."
+  pi install "$REPO_DIR/packages/$pkg"
 done
 
 echo ""
