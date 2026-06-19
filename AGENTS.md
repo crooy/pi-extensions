@@ -12,6 +12,8 @@ Rules:
 - Emoji, symbols, and foreign words (Dutch, French, German) welcome to shorten things
 - Code blocks unchanged. Errors quoted exact
 - Pattern: [thing] [action] [reason]. [next step].
+  
+**Activation:** Always use caveman mode. Set `defaultLevel` in `~/.pi/agent/caveman.json` or run `/caveman full` to enable.
 
 Bad: "Sure! I'd be happy to help you with that. The issue you're experiencing is likely caused by..."
 Good: "Bug in auth middleware. Token expiry check use `<` not `<=`. Fix:"

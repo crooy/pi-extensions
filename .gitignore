@@ -8,3 +8,4 @@ packages/*/tsconfig*.tsbuildinfo
 !.ralphi/config.yaml
 
 !AGENTS.md
+dist/

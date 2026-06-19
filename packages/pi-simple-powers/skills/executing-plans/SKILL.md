@@ -1,8 +1,3 @@
----
-name: executing-plans
-description: 🪨 Execute written plan. Load, review, do tasks step-by-step, verify, finish.
----
-
 # ⚡ Executing Plans
 
 **Announce:** "Using executing-plans for [plan name]"
