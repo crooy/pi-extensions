@@ -61,7 +61,9 @@ function makeMockCtx(): ExtensionContext {
       setToolsExpanded: vi.fn(),
     },
     hasUI: true,
+    mode: "tui",
     cwd: "/tmp",
+    isProjectTrusted: () => true,
     sessionManager: {
       getSessionId: vi.fn().mockReturnValue("session-1"),
     } as unknown as ExtensionContext["sessionManager"],

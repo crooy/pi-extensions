@@ -1,5 +1,5 @@
 import { appendFileSync, mkdirSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { resolve } from "node:path";
 
 interface TelemetryEvent {
   event: string;

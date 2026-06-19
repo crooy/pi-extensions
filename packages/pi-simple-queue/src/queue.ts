@@ -1,13 +1,5 @@
 import { getDb, saveDb } from "./db.js";
-import type { Task, TaskOutput, PlanSummary } from "./types.js";
-
-const statusOrder: Record<string, number> = {
-  blocked: 0,
-  pending: 1,
-  active: 2,
-  done: 3,
-  failed: 4,
-};
+import type { Task, PlanSummary } from "./types.js";
 
 export function addTask(task: Task): Task {
   const db = getDb();
@@ -70,10 +62,12 @@ export function pickTask(): Task | null {
     RETURNING id, skill, cwd, goal, plan_path, context, model, status, output, error,
       retries, max_retries, timeout_sec, created_at, picked_at, completed_at`);
 
-  if (!result.length || !result[0].values.length) return null;
-
-  const row = result[0].values[0];
-  const cols = result[0].columns;
+  if (!result.length) return null;
+  const r = result[0]!;
+  if (!r.values?.length) return null;
+  const row = r.values[0];
+  if (!row) return null;
+  const cols = r.columns;
   const task = rowToTask(cols, row);
 
   saveDb();
@@ -103,7 +97,11 @@ export function failTask(id: string, errMsg: string): void {
   const db = getDb();
   const result = db.exec(`SELECT retries, max_retries FROM tasks WHERE id = ?`, [id]);
   if (!result.length) return;
-  const [retries, maxRetries] = result[0].values[0] as [number, number];
+  const r = result[0]!;
+  if (!r.values?.length) return;
+  const row = r.values[0];
+  if (!row) return;
+  const [retries, maxRetries] = row as [number, number];
 
   if (retries < maxRetries - 1) {
     db.run(`UPDATE tasks SET status = 'pending', retries = retries + 1, picked_at = NULL, error = ? WHERE id = ?`,
@@ -122,16 +120,20 @@ export function listTasks(): Task[] {
     FROM tasks ORDER BY created_at ASC`);
 
   if (!result.length) return [];
-  const cols = result[0].columns;
-  return result[0].values.map((row) => rowToTask(cols, row));
+  const r = result[0]!;
+  if (!r.values?.length) return [];
+  const cols = r.columns;
+  return r.values.map((row) => rowToTask(cols, row));
 }
 
 export function taskCounts(): Record<string, number> {
   const db = getDb();
   const result = db.exec("SELECT status, COUNT(*) FROM tasks GROUP BY status");
   if (!result.length) return {};
+  const r = result[0]!;
+  if (!r.values?.length) return {};
   const counts: Record<string, number> = {};
-  for (const row of result[0].values) {
+  for (const row of r.values) {
     counts[row[0] as string] = row[1] as number;
   }
   return counts;
@@ -149,8 +151,10 @@ export function listPlans(): PlanSummary[] {
     GROUP BY plan_path ORDER BY plan_path`);
 
   if (!result.length) return [];
-  const cols = result[0].columns;
-  return result[0].values.map((row) => {
+  const r = result[0]!;
+  if (!r.values?.length) return [];
+  const cols = r.columns;
+  return r.values.map((row) => {
     const obj: Record<string, unknown> = {};
     cols.forEach((col, i) => { obj[col] = row[i]; });
     return obj as unknown as PlanSummary;

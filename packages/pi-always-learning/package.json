@@ -50,7 +50,7 @@
     "pi-cl-analyze": "dist/cli/analyze.js"
   },
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist *.tsbuildinfo",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

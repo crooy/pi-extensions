@@ -5,7 +5,7 @@
   "type": "module",
   "bin": {
     "slq": "./src/index.ts",
-    "pi-slq-loop": "./loop/pi-slq-loop.sh"
+    "pi-slq-loop": "./src/loop.ts"
   },
   "files": [
     "src",

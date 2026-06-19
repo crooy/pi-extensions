@@ -1,4 +1,7 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "]", "src/**/*.test.ts"]
+  "compilerOptions": {
+    "composite": false
+  },
+  "exclude": ["node_modules", "src/**/*.test.ts"]
 }

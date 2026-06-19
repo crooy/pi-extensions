@@ -10,7 +10,7 @@ import type { Task } from "./types.js";
 async function main() {
   await openDb();
 
-  const argv = await yargs(hideBin(process.argv))
+  await yargs(hideBin(process.argv))
     .scriptName("slq")
     .usage("🪨 slq — caveman sqlite queue\n  $0 <command> [options]")
     .command("add", "Add task to queue", (y) => {
@@ -23,23 +23,23 @@ async function main() {
         .option("model", { type: "string", desc: "Model override" })
         .option("timeout", { type: "number", default: 900, desc: "Timeout seconds" })
         .option("max-retries", { type: "number", default: 3, desc: "Max retries" });
-    }, (args) => {
-      const planPath = args["plan-path"] || generatePlanPath(args.goal);
-      ensurePlanFile(planPath, args.goal);
-      const dependsOn = args["depends-on"]?.split(",").map(s => s.trim()).filter(Boolean);
+    }, (a: Record<string, unknown>) => {
+      const planPath = (a["plan-path"] as string) || generatePlanPath(a["goal"] as string);
+      ensurePlanFile(planPath, a["goal"] as string);
+      const dependsOn = (a["depends-on"] as string)?.split(",").map((s: string) => s.trim()).filter(Boolean);
       const task: Task = {
         id: "",
-        skill: args.skill,
-        cwd: args.cwd,
-        goal: args.goal,
+        skill: a["skill"] as string,
+        cwd: a["cwd"] as string,
+        goal: a["goal"] as string,
         plan_path: planPath,
         context: "",
-        model: args.model || "",
+        model: (a["model"] as string) || "",
         depends_on: dependsOn,
         status: dependsOn?.length ? "blocked" : "pending",
         retries: 0,
-        max_retries: args["max-retries"],
-        timeout_sec: args.timeout,
+        max_retries: a["max-retries"] as number,
+        timeout_sec: a["timeout"] as number,
         created_at: new Date().toISOString(),
       };
       const created = addTask(task);
@@ -58,7 +58,7 @@ async function main() {
       y
         .positional("id", { type: "string", demandOption: true, desc: "Task ID" })
         .option("output", { type: "string", demandOption: true, desc: "JSON output" });
-    }, (args) => {
+    }, (args: Record<string, unknown>) => {
       doneTask(args.id as string, args.output as string);
       track("task_done", { task_id: args.id as string });
       console.log(`✅ ${args.id} done`);
@@ -68,7 +68,7 @@ async function main() {
       y
         .positional("id", { type: "string", demandOption: true, desc: "Task ID" })
         .option("error", { type: "string", demandOption: true, desc: "Error message" });
-    }, (args) => {
+    }, (args: Record<string, unknown>) => {
       failTask(args.id as string, args.error as string);
       track("task_failed", { task_id: args.id as string, outcome: args.error as string });
       console.log(`❌ ${args.id} failed`);
@@ -109,11 +109,14 @@ async function main() {
 
     .command("run-plan <id>", "Emit plan content for task (used by pi-slq-loop)", (y) => {
       y.positional("id", { type: "string", demandOption: true, desc: "Task ID" });
-    }, (args) => {
+    }, (args: Record<string, unknown>) => {
       const db = getDb();
       const result = db.exec("SELECT plan_path, goal, skill, cwd FROM tasks WHERE id = ?", [args.id as string]);
       if (!result.length) { console.log(`❌ Task ${args.id} not found`); process.exit(1); }
-      const [planPath, goal, skill, cwd] = result[0].values[0] as string[];
+      const r = result[0]!;
+      if (!r.values?.length) { console.log(`❌ Task ${args.id} not found`); process.exit(1); }
+      const row = r.values[0]!;
+      const [planPath, goal, skill, cwd] = row as string[];
       const planContent = planPath ? readPlan(planPath) : `# ${goal}`;
       console.log(JSON.stringify({ plan_path: planPath, goal, skill, cwd, plan_content: planContent }));
     })
