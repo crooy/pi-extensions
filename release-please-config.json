@@ -12,14 +12,8 @@
     }
   ],
   "packages": {
-    "packages/pi-caveman-learning": {},
-    "packages/pi-red-green": {},
-    "packages/pi-compass": {},
-    "packages/pi-caveman-simple": {},
-    "packages/pi-code-review": {},
-    "packages/pi-caveman-forge": {},
-    "packages/pi-cavepeople": {},
+    "packages/pi-always-learning": {},
     "packages/pi-caveman": {},
-    "packages/pi-superpowers": {}
+    "packages/pi-simple-powers": {}
   }
 }

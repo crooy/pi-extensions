@@ -13,22 +13,13 @@
   "pi": {
     "extensions": [
       "./packages/pi-caveman/extensions/caveman.ts",
-      "./packages/pi-cavepeople/src/extension/index.ts",
-      "./packages/pi-caveman-forge/dist/index.js",
-      "./packages/pi-caveman-learning/dist/index.js",
-      "./packages/pi-caveman-simple/dist/index.js",
-      "./packages/pi-code-review/dist/index.js",
-      "./packages/pi-compass/dist/index.js",
-      "./packages/pi-red-green/dist/index.js",
-    "./packages/pi-superpowers/extensions/superpowers.ts"
+      "./packages/pi-always-learning/dist/index.js",
+      "./packages/pi-simple-powers/extensions/simple-powers.ts"
     ],
     "skills": [
-      "./packages/pi-cavepeople/skills",
-      "./packages/pi-superpowers/skills"
+      "./packages/pi-simple-powers/skills"
     ],
-    "prompts": [
-      "./packages/pi-cavepeople/prompts"
-    ]
+    "prompts": []
   },
   "keywords": [
     "pi-package",

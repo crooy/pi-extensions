@@ -47,30 +47,22 @@ packages/
   pi-code-review/           # Pi extension: automated language-aware code review
     src/                    # TypeScript source + tests (*.test.ts alongside source)
     CHANGELOG.md            # Release history (managed by release-please)
-  pi-cavepeople/            # Pi extension: subagent delegation with caveman-mode agents
+  pi-always-learning/       # Pi extension: observes sessions, distills behavior patterns into instincts
     src/                    # TypeScript source + tests
-    agents/                 # Agent definitions (markdown)
-    prompts/                # Subagent prompt templates
-    skills/                 # Pi skills for subagent discovery
-    scripts/                # Shell scripts (subagent-env, caveman-subagent)
-    CHANGELOG.md            # Release history (managed by release-please)
-  pi-caveman-forge           # Pi extension: caveman planning forge (brainstorm → plan → execute)
-    src/                    # TypeScript source + tests (*.test.ts alongside source)
-    CHANGELOG.md            # Release history (managed by release-please)
+    AGENTS.md
+    CHANGELOG.md
   pi-caveman/               # Pi extension: caveman speak mode (cuts ~75% tokens)
     extensions/             # Extension source (caveman.ts)
-    CHANGELOG.md            # Release history (managed by release-please)
-  pi-superpowers/            # Pi extension: caveman superpowers (brainstorm → plan → execute)
-    extensions/             # Caveman bootstrap extension
-    skills/                 # 14 caveman-ified superpowers skills
-    AGENTS.md               # Package conventions
-    README.md               # Package docs
-  slq-js/                    # SQLite queue CLI (TS, sql.js) + pi-slq-loop bash wrapper
+    CHANGELOG.md
+  pi-simple-powers/          # Pi extension: caveman dev methodology (14 skills: TDD, debug, etc)
+    extensions/             # Bootstrap extension
+    skills/                 # 14 skill SKILL.md files
+    AGENTS.md
+  pi-simple-queue/           # TS queue CLI (siq) + pi-siQ-loop bash wrapper
     src/                    # CLI source
-    loop/                   # pi-slq-loop.sh bash wrapper
+    loop/                   # pi-siQ-loop.sh
     tests/                  # vitest tests
     README.md
-    AGENTS.md
 ```
 
 ## Commands (run from repo root)
@@ -97,7 +89,7 @@ bash install-all.sh
 
 ## Working on a specific package
 
-When working inside `packages/pi-caveman-learning`, refer to `packages/pi-caveman-learning/AGENTS.md` for:
+When working inside `packages/pi-always-learning`, refer to `packages/pi-always-learning/AGENTS.md` for:
 - Code conventions specific to that package
 - Full directory structure with file descriptions
 - Testing approach

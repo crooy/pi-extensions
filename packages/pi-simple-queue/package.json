@@ -1,0 +1,45 @@
+{
+  "name": "pi-simple-queue",
+  "version": "0.1.0",
+  "description": "🪨 siq — caveman sqlite queue for pi workers. CLI in TS, loop in bash.",
+  "type": "module",
+  "bin": {
+    "slq": "./src/index.ts",
+    "pi-slq-loop": "./loop/pi-slq-loop.sh"
+  },
+  "files": [
+    "src",
+    "loop",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/ tests/",
+    "typecheck": "tsc --noEmit",
+    "build": "echo 'no build needed — runs directly via tsx'",
+    "check": "npm run typecheck && npm run lint && npm run test"
+  },
+  "keywords": ["pi", "caveman", "queue", "sqlite", "siq"],
+  "license": "MIT",
+  "dependencies": {
+    "sql.js": "^1.11.0",
+    "tsx": "^4.19.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/yargs": "^17.0.33",
+    "eslint": "^9.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.79.6"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  }
+}

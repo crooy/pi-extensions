@@ -1,0 +1,64 @@
+{
+  "name": "pi-simple-powers",
+  "version": "0.1.0",
+  "description": "🪨 Caveman Superpowers — Obra's methodology, caveman tongue. Brainstorm → Plan → Execute. Writes caveman docs to docs/<date>-<title>.md, respects monorepo hierarchy & user paths.",
+  "type": "module",
+  "license": "MIT",
+  "author": "crooy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crooy/pi-extensions.git",
+    "directory": "packages/pi-superpowers"
+  },
+  "homepage": "https://github.com/crooy/pi-extensions/tree/main/packages/pi-superpowers#readme",
+  "bugs": {
+    "url": "https://github.com/crooy/pi-extensions/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "superpowers",
+    "caveman",
+    "brainstorming",
+    "tdd",
+    "debugging",
+    "workflow"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "extensions",
+    "skills",
+    "src",
+    "!src/**/*.test.ts",
+    "README.md"
+  ],
+  "pi": {
+    "extensions": [
+      "./extensions/simple-powers.ts"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test src/*.test.ts 2>/dev/null || echo 'no tests'",
+    "check": "npm run typecheck",
+    "prepublishOnly": "npm run check"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.79.6",
+    "@earendil-works/pi-ai": "^0.74.0"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-ai": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.79.6",
+    "typescript": "^6.0.3"
+  }
+}

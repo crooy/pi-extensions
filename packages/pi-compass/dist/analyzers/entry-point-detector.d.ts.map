@@ -1,1 +1,0 @@
-{"version":3,"file":"entry-point-detector.d.ts","sourceRoot":"","sources":["../../src/analyzers/entry-point-detector.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,WAAW,EAAE,UAAU,EAAE,MAAM,aAAa,CAAC;AA8C3D,wBAAgB,iBAAiB,CAC/B,GAAG,EAAE,MAAM,EACX,QAAQ,EAAE,SAAS,WAAW,EAAE,GAC/B,SAAS,UAAU,EAAE,CAmCvB"}
