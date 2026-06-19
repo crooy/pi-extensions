@@ -1,1 +1,0 @@
-{"version":3,"file":"active-instincts.js","sourceRoot":"","sources":["../src/active-instincts.ts"],"names":[],"mappings":"AAAA,IAAI,eAAe,GAAa,EAAE,CAAC;AAEnC,MAAM,UAAU,yBAAyB;IACvC,OAAO,CAAC,GAAG,eAAe,CAAC,CAAC;AAC9B,CAAC;AAED,MAAM,UAAU,yBAAyB,CAAC,GAAa;IACrD,eAAe,GAAG,CAAC,GAAG,GAAG,CAAC,CAAC;AAC7B,CAAC;AAED,MAAM,UAAU,oBAAoB;IAClC,eAAe,GAAG,EAAE,CAAC;AACvB,CAAC"}

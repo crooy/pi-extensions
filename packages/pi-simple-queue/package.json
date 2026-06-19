@@ -20,7 +20,13 @@
     "build": "echo 'no build needed — runs directly via tsx'",
     "check": "npm run typecheck && npm run lint && npm run test"
   },
-  "keywords": ["pi", "caveman", "queue", "sqlite", "siq"],
+  "keywords": [
+    "pi",
+    "caveman",
+    "queue",
+    "sqlite",
+    "siq"
+  ],
   "license": "MIT",
   "dependencies": {
     "sql.js": "^1.11.0",
@@ -29,6 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "@types/sql.js": "^1.4.11",
     "@types/yargs": "^17.0.33",
     "eslint": "^9.0.0",
     "typescript": "^5.7.0",

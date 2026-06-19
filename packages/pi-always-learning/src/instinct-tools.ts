@@ -468,7 +468,7 @@ export function createInstinctMergeTool(
 }
 
 export function registerAllTools(
-  pi: ExtensionAPI,
+  pi: any,
   projectId: string | null,
   projectName: string | null,
   baseDir?: string,

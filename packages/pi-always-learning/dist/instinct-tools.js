@@ -1,3 +1,4 @@
+// Added for Intellij domain
 import { Type, StringEnum } from "@earendil-works/pi-ai";
 import { unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
