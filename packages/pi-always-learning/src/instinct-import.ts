@@ -1,5 +1,5 @@
 /**
- * /instinct-import command for pi-caveman-learning.
+ * /instinct-import command for pi-always-learning.
  * Imports instincts from a JSON file into the inherited instincts directory.
  * Destination is determined by each instinct's scope field:
  *   - scope "project" -> projects/<id>/instincts/inherited/

@@ -1,5 +1,5 @@
 /**
- * /instinct-export command for pi-caveman-learning.
+ * /instinct-export command for pi-always-learning.
  * Exports instincts to a JSON file in the current directory.
  * Optional args: scope (project|global) and domain filter.
  */

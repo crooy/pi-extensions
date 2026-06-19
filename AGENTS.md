@@ -30,23 +30,6 @@ This is an npm workspaces monorepo. All Pi extensions live under `packages/`. Ea
 
 ```text
 packages/
-  pi-caveman-learning/      # Pi extension: caveman memory (watches sessions, distills instincts)
-    src/                    # TypeScript source + tests (*.test.ts alongside source)
-    docs/                   # Package documentation (internals.md, specification.md)
-    AGENTS.md               # Package-level conventions, directory structure, testing
-    CHANGELOG.md            # Release history (managed by release-please)
-  pi-red-green/             # Pi extension: TDD enforcement (red-green-refactor)
-    src/                    # TypeScript source + tests (*.test.ts alongside source)
-    CHANGELOG.md            # Release history (managed by release-please)
-  pi-compass/               # Pi extension: codebase navigation (codemap + code tours)
-    src/                    # TypeScript source + tests (*.test.ts alongside source)
-    CHANGELOG.md            # Release history (managed by release-please)
-  pi-caveman-simple/        # Pi extension: caveman code simplification (/carve command)
-    src/                    # TypeScript source + tests (*.test.ts alongside source)
-    CHANGELOG.md            # Release history (managed by release-please)
-  pi-code-review/           # Pi extension: automated language-aware code review
-    src/                    # TypeScript source + tests (*.test.ts alongside source)
-    CHANGELOG.md            # Release history (managed by release-please)
   pi-always-learning/       # Pi extension: observes sessions, distills behavior patterns into instincts
     src/                    # TypeScript source + tests
     AGENTS.md
@@ -58,9 +41,9 @@ packages/
     extensions/             # Bootstrap extension
     skills/                 # 14 skill SKILL.md files
     AGENTS.md
-  pi-simple-queue/           # TS queue CLI (siq) + pi-siQ-loop bash wrapper
+  pi-simple-queue/           # TS queue CLI (slq) + pi-slq-loop bash wrapper
     src/                    # CLI source
-    loop/                   # pi-siQ-loop.sh
+    loop/                   # pi-slq-loop.sh
     tests/                  # vitest tests
     README.md
 ```
@@ -77,8 +60,8 @@ Individual commands:
 
 ```bash
 npm test                                                       # run all package tests
-npm test -w packages/pi-caveman-learning -- src/foo.test.ts # single file
-npm test -w packages/pi-caveman-learning -- -t "pattern"    # by name pattern
+npm test -w packages/pi-always-learning -- src/foo.test.ts # single file
+npm test -w packages/pi-always-learning -- -t "pattern"    # by name pattern
 npm run typecheck                                              # type-check all packages
 npm run lint                                                   # ESLint on all packages
 npm run build                                                  # compile all packages to dist/

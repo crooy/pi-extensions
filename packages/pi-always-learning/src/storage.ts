@@ -1,5 +1,5 @@
 /**
- * Storage layout creation for pi-caveman-learning.
+ * Storage layout creation for pi-always-learning.
  * Creates the directory structure under ~/.pi/continuous-learning/
  * on first use, and maintains the projects.json registry.
  */

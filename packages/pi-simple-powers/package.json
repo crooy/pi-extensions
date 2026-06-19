@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crooy/pi-extensions.git",
-    "directory": "packages/pi-superpowers"
+    "directory": "packages/pi-simple-powers"
   },
   "homepage": "https://github.com/crooy/pi-extensions/tree/main/packages/pi-superpowers#readme",
   "bugs": {
