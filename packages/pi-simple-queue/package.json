@@ -33,7 +33,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
+    "@types/node": "^26.0.0",
     "@types/sql.js": "^1.4.11",
     "@types/yargs": "^17.0.33",
     "eslint": "^9.0.0",
