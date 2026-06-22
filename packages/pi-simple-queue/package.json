@@ -38,7 +38,7 @@
     "@types/yargs": "^17.0.33",
     "eslint": "^9.0.0",
     "typescript": "^6.0.3",
-    "vitest": "^3.0.0"
+    "vitest": "^4.1.9"
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "^0.79.8"
