@@ -30,7 +30,7 @@
   "dependencies": {
     "sql.js": "^1.11.0",
     "tsx": "^4.19.0",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
